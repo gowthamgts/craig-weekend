@@ -43,12 +43,14 @@ func main() {
 	if err != nil {
 		log.Fatal("unable to open media file: ", err)
 	}
+	defer mediaFile.Close()
 
 	// create thumbnail file handler
 	thumbnail, err := os.Open(THUMBNAIL_PATH)
 	if err != nil {
 		log.Fatal("unable to open thumbnail file: ", err)
 	}
+	defer thumbnail.Close()
 
 	// create mastodon.Media struct
 	media := &mastodon.Media{
