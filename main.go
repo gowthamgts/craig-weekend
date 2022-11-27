@@ -14,8 +14,7 @@ var (
 	MASTODON_SERVER        = os.Getenv("MASTODON_SERVER")
 	MASTODON_CLIENT_ID     = os.Getenv("MASTODON_CLIENT_ID")
 	MASTODON_CLIENT_SECRET = os.Getenv("MASTODON_CLIENT_SECRET")
-	MASTODON_USERNAME      = os.Getenv("MASTODON_USERNAME")
-	MASTODON_PASSWORD      = os.Getenv("MASTODON_PASSWORD")
+	MASTODON_ACCESS_TOKEN  = os.Getenv("MASTODON_ACCESS_TOKEN")
 
 	VIDEO_PATH     = "./media/video.mp4"
 	THUMBNAIL_PATH = "./media/thumbnail.png"
@@ -23,13 +22,12 @@ var (
 
 func main() {
 	// make sure all needed environment variables are set
-	if MASTODON_SERVER == "" || MASTODON_CLIENT_ID == "" || MASTODON_CLIENT_SECRET == "" || MASTODON_USERNAME == "" || MASTODON_PASSWORD == "" {
+	if MASTODON_SERVER == "" || MASTODON_CLIENT_ID == "" || MASTODON_CLIENT_SECRET == "" || MASTODON_ACCESS_TOKEN == "" {
 		log.Fatal(`you need to set the environment vars:
 	MASTODON_SERVER - the mastodon server url. ex: https://mastodon.social
 	MASTODON_CLIENT_ID - your application's client id
 	MASTODON_CLIENT_SECRET - your application's client secret
-	MASTODON_USERNAME - your mastodon account username
-	MASTODON_PASSWORD - your mastodon account password`)
+	MASTODON_ACCESS_TOKEN - your application's access token`)
 	}
 
 	// create a new mastodon client
@@ -37,13 +35,8 @@ func main() {
 		Server:       MASTODON_SERVER,
 		ClientID:     MASTODON_CLIENT_ID,
 		ClientSecret: MASTODON_CLIENT_SECRET,
+		AccessToken:  MASTODON_ACCESS_TOKEN,
 	})
-
-	// authenticate with mastodon server
-	err := c.Authenticate(context.Background(), MASTODON_USERNAME, MASTODON_PASSWORD)
-	if err != nil {
-		log.Fatal("authentication failed: ", err)
-	}
 
 	// create media file handler
 	mediaFile, err := os.Open(VIDEO_PATH)

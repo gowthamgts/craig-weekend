@@ -19,7 +19,7 @@ cd craig-weekend
 make fresh
 
 # add the following entry to your crontab by issuing `crontab -e`. don't forget to update the environment variables
-0 0 * * SAT MASTODON_SERVER="" MASTODON_CLIENT_ID="" MASTODON_CLIENT_SECRET="" MASTODON_USERNAME="" MASTODON_PASSWORD="" <build directory>/craig-weekend
+0 0 * * SAT MASTODON_SERVER="" MASTODON_CLIENT_ID="" MASTODON_CLIENT_SECRET="" MASTODON_ACCESS_TOKEN="" <build directory>/craig-weekend
 ```
 
 ## Environment variables
@@ -31,8 +31,7 @@ The following environment variables are needed for running the bot.
 | MASTODON_SERVER           | the mastodon server url. ex: https://mastodon.social |
 | MASTODON_CLIENT_ID        | your application's client id                         |
 | MASTODON_CLIENT_SECRET    | your application's client secret                     |
-| MASTODON_USERNAME         | your mastodon account username                       |
-| MASTODON_PASSWORD         | your mastodon account password                       |
+| MASTODON_ACCESS_TOKEN     | your application's accses token                      |
 
 ## License
 
