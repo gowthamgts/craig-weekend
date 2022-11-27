@@ -15,11 +15,8 @@ git clone https://github.com/gowthamgts/craig-weekend
 # change directory
 cd craig-weekend
 
-# build the binary
-go build main.go
-
-# test the binary - this will throw an error stating you are missing some environment variables
-./craig-weekend
+# build and run the binary - this will throw an error stating you are missing some environment variables
+make fresh
 
 # add the following entry to your crontab by issuing `crontab -e`. don't forget to update the environment variables
 0 0 * * SAT MASTODON_SERVER="" MASTODON_CLIENT_ID="" MASTODON_CLIENT_SECRET="" MASTODON_USERNAME="" MASTODON_PASSWORD="" <build directory>/craig-weekend
