@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"context"
+	"embed"
 	"fmt"
 	"log"
 	"os"
@@ -16,8 +17,11 @@ var (
 	MASTODON_CLIENT_SECRET = os.Getenv("MASTODON_CLIENT_SECRET")
 	MASTODON_ACCESS_TOKEN  = os.Getenv("MASTODON_ACCESS_TOKEN")
 
-	VIDEO_PATH     = "./media/video.mp4"
-	THUMBNAIL_PATH = "./media/thumbnail.png"
+	//go:embed media/*
+	mediaDirectory embed.FS
+
+	VIDEO_PATH     = "media/video.mp4"
+	THUMBNAIL_PATH = "media/thumbnail.png"
 )
 
 func main() {
@@ -39,14 +43,14 @@ func main() {
 	})
 
 	// create media file handler
-	mediaFile, err := os.Open(VIDEO_PATH)
+	mediaFile, err := mediaDirectory.Open(VIDEO_PATH)
 	if err != nil {
 		log.Fatal("unable to open media file: ", err)
 	}
 	defer mediaFile.Close()
 
 	// create thumbnail file handler
-	thumbnail, err := os.Open(THUMBNAIL_PATH)
+	thumbnail, err := mediaDirectory.Open(THUMBNAIL_PATH)
 	if err != nil {
 		log.Fatal("unable to open thumbnail file: ", err)
 	}
